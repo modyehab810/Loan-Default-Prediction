@@ -1,4 +1,5 @@
 streamlit
+streamlit_option_menu
 gunicorn==19.7.1
 tensorflow==2.15.0
 numpy

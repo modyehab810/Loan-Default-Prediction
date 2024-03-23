@@ -8,10 +8,7 @@ import streamlit as st
 from streamlit.components.v1 import html
 from streamlit_option_menu import option_menu
 
-
 import tensorflow as tf
-import warnings
-
 
 def run():
     st.set_page_config(
@@ -19,8 +16,6 @@ def run():
         page_icon="💰",
         layout="wide"
     )
-
-    warnings.simplefilter(action='ignore', category=FutureWarning)
 
     if "the_df" not in st.session_state:
         st.session_state.the_df = pd.DataFrame()

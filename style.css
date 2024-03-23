@@ -1,0 +1,91 @@
+.main {
+  text-align: center;
+}
+h3 {
+  font-size: 25px;
+}
+.st-emotion-cache-16txtl3 h1 {
+  font: bold 29px arial;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+div[data-testid="stSidebarContent"] {
+  background-color: #111;
+  color: #fff;
+  border-right: 4px solid #555;
+  padding: 8px !important;
+  overflow: hidden;
+}
+
+div.menu {
+  background-color: #111 !important;
+}
+
+h1 {
+  color: #fff !important;
+}
+
+div.block-containers {
+  padding-top: 0.5rem;
+}
+
+.st-emotion-cache-z5fcl4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1.1rem;
+  padding-right: 2.2rem;
+  overflow-x: hidden;
+}
+
+.st-emotion-cache-16txtl3 {
+  padding: 2.7rem 0.6rem;
+}
+div[data-testid="stSidebarContent"] div[data-testid="stMarkdownContainer"] > p {
+  color: #eee;
+}
+div.st-emotion-cache-1r6slb0 span.st-emotion-cache-10trblm {
+  font: bold 24px tahoma;
+}
+div [data-testid="stImage"] {
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+div[data-baseweb="select"] > div {
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid #ddd;
+}
+div[data-baseweb="select"] > div:hover {
+  border: 2px solid #333;
+}
+
+div[data-baseweb="base-input"] {
+  background-color: #fff;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+div[data-testid="stFormSubmitButton"] > button {
+  width: 40%;
+  background-color: #fff;
+  border: 3px solid #009378;
+  padding: 18px;
+  border-radius: 15px;
+  opacity: 0.8;
+}
+div[data-testid="stFormSubmitButton"] p {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+div[data-testid="stFormSubmitButton"] > button:hover {
+  opacity: 1;
+  border: 3px solid #009378;
+  color: #000;
+}

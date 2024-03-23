@@ -59,7 +59,7 @@ def run():
 
     with st.sidebar:
         st.write("")
-        st.title("Lend Secure 💰")
+        st.title("💸 Lend Secure 💸")
         st.write("")
 
         page = option_menu(
@@ -185,7 +185,7 @@ def run():
                     df.dropna(inplace=True)
 
             with header:
-                st.header("Predictio From File")
+                st.header("Prediction From File ")
 
             with content:
                 st.write("")

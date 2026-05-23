@@ -45,11 +45,35 @@ def run():
     with open("style.css") as f:
         st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
+
     side_bar_options_style = {
-        "container": {"padding": "0!important", "background-color": '#121212', "border-radius": "0"},
-        "icon": {"color": "#fff", "font-size": "20px"},
-        "nav-link": {"color": "#fff", "font-size": "18px", "text-align": "left", "margin": "0px", "margin-bottom": "0px"},
-        "nav-link-selected": {"background-color": "#009378", "font-size": "16px", },
+        "container": {
+            "padding": "0.5rem 0.75rem !important",
+            "background-color": "transparent",
+            "border-radius": "0",
+        },
+        "icon": {
+            "color": "#00D2AA",
+            "font-size": "16px",
+        },
+        "nav-link": {
+            "color": "#7A8FA6",
+            "font-size": "0.82rem",
+            "font-family": "'DM Mono', monospace",
+            "text-transform": "uppercase",
+            "letter-spacing": "0.08em",
+            "text-align": "left",
+            "margin": "2px 0",
+            "padding": "0.6rem 0.85rem",
+            "border-radius": "8px",
+            "transition": "all 0.2s",
+        },
+        "nav-link-selected": {
+            "background-color": "rgba(0,210,170,0.12)",
+            "color": "#00D2AA",
+            "border": "1px solid rgba(0,210,170,0.30)",
+            "font-size": "0.82rem",
+        },
     }
 
     header = st.container()

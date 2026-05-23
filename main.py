@@ -48,31 +48,40 @@ def run():
 
     side_bar_options_style = {
         "container": {
-            "padding": "0.5rem 0.75rem !important",
+            "padding": "0.4rem 0.65rem",
             "background-color": "transparent",
             "border-radius": "0",
+            "margin": "0",
         },
         "icon": {
-            "color": "#00D2AA",
-            "font-size": "16px",
+            "color": "#6E8599",
+            "font-size": "15px",
+            "margin-right": "2px",
         },
         "nav-link": {
-            "color": "#7A8FA6",
-            "font-size": "0.82rem",
+            "color": "#6E8599",
+            "font-size": "0.74rem",
             "font-family": "'DM Mono', monospace",
+            "font-weight": "400",
             "text-transform": "uppercase",
-            "letter-spacing": "0.08em",
+            "letter-spacing": "0.09em",
             "text-align": "left",
-            "margin": "2px 0",
-            "padding": "0.6rem 0.85rem",
+            "padding": "0.65rem 0.9rem",
             "border-radius": "8px",
-            "transition": "all 0.2s",
+            "margin": "2px 0",
+            "border": "1px solid transparent",
+            "transition": "all 0.18s ease",
         },
         "nav-link-selected": {
-            "background-color": "rgba(0,210,170,0.12)",
+            "background-color": "rgba(0,210,170,0.10)",
             "color": "#00D2AA",
-            "border": "1px solid rgba(0,210,170,0.30)",
-            "font-size": "0.82rem",
+            "border": "1px solid rgba(0,210,170,0.35)",
+            "box-shadow": "inset 3px 0 0 #00D2AA",
+            "font-size": "0.74rem",
+            "font-weight": "500",
+        },
+        "menu-title": {
+            "display": "none",
         },
     }
 
@@ -82,9 +91,24 @@ def run():
     st.write("")
 
     with st.sidebar:
-        st.write("")
-        st.title("💸 Lend Secure 💸")
-        st.write("")
+        # ── Brand ──────────────────────────────────────────────
+        st.title("💸 Lend Secure")
+        st.markdown(
+            "<p style='font-size:0.68rem;color:#344758;letter-spacing:0.08em;"
+            "text-transform:uppercase;padding:0 1.4rem 1rem;margin-top:-0.5rem;'>"
+            "Risk Intelligence · v3.0</p>",
+            unsafe_allow_html=True
+        )
+
+        # ── Divider + section label ─────────────────────────────
+        st.markdown(
+            "<hr style='border:none;border-top:1px solid rgba(255,255,255,0.06);"
+            "margin:0 0 0.5rem;'/>"
+            "<p style='font-size:0.60rem;font-family:DM Mono,monospace;"
+            "letter-spacing:0.14em;text-transform:uppercase;color:#2A3A4A;"
+            "padding:0.4rem 1rem 0.2rem;margin:0;'>Navigation</p>",
+            unsafe_allow_html=True
+        )
 
         page = option_menu(
             menu_title=None,
@@ -95,8 +119,20 @@ def run():
             styles=side_bar_options_style
         )
 
-        st.write("")
-        # st_lottie(lottie_json, height=350, speed=1)
+        # ── Footer ─────────────────────────────────────────────
+        st.markdown(
+            "<div style='position:fixed;bottom:0;left:0;width:280px;"
+            "border-top:1px solid rgba(255,255,255,0.06);"
+            "background:#07090D;padding:0.85rem 1.4rem;'>"
+            "<p style='font-size:0.62rem;font-family:DM Mono,monospace;"
+            "color:#2A3A4A;letter-spacing:0.07em;margin:0;'>"
+            "MODEL&nbsp;&nbsp;<span style='color:#00D2AA;'>ANN · v3</span></p>"
+            "<p style='font-size:0.62rem;font-family:DM Mono,monospace;"
+            "color:#2A3A4A;letter-spacing:0.07em;margin:0.2rem 0 0;'>"
+            "SCALER&nbsp;<span style='color:#00D2AA;'>MinMax</span></p>"
+            "</div>",
+            unsafe_allow_html=True
+        )
 
         # Home Page
         if page == "Preidct Value":

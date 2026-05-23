@@ -1,24 +1,52 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&display=swap');
 
-/* ── CSS Custom Properties ─────────────────────────────────────────────── */
 :root {
+    /* backgrounds */
     --bg-base:        #080C10;
-    --bg-surface:     #0D1117;
-    --bg-card:        #111820;
-    --border:         rgba(0, 210, 170, 0.12);
-    --border-active:  rgba(0, 210, 170, 0.45);
+    --bg-surface:     #0C1118;
+    --bg-card:        #101820;
+    --bg-card-2:      #141E28;
+    --bg-sidebar:     #07090D;
+
+    /* accent palette */
     --accent:         #00D2AA;
+    --accent-light:   #00FFCC;
     --accent-dim:     rgba(0, 210, 170, 0.08);
-    --accent-glow:    rgba(0, 210, 170, 0.25);
+    --accent-glow:    rgba(0, 210, 170, 0.22);
+    --accent-border:  rgba(0, 210, 170, 0.18);
+    --accent-strong:  rgba(0, 210, 170, 0.45);
+
+    /* danger */
     --danger:         #FF4D6D;
-    --text-primary:   #E8F0F7;
-    --text-secondary: #7A8FA6;
-    --text-muted:     #3D5166;
-    --radius-sm:      6px;
-    --radius-md:      12px;
-    --radius-lg:      18px;
-    --font-display:   'Syne', sans-serif;
-    --font-mono:      'DM Mono', monospace;
+    --danger-dim:     rgba(255, 77, 109, 0.08);
+    --danger-border:  rgba(255, 77, 109, 0.30);
+
+    /* borders */
+    --border:         rgba(255,255,255,0.06);
+    --border-mid:     rgba(255,255,255,0.10);
+
+    /* text */
+    --text-primary:   #DDE8F0;
+    --text-secondary: #6E8599;
+    --text-muted:     #344758;
+    --text-accent:    #00D2AA;
+
+    /* radius */
+    --r-xs:  4px;
+    --r-sm:  8px;
+    --r-md:  12px;
+    --r-lg:  18px;
+    --r-xl:  24px;
+
+    /* sidebar sizing */
+    --sidebar-w: 280px;
+
+    /* fonts */
+    --font-display: 'Syne', sans-serif;
+    --font-mono:    'DM Mono', monospace;
+
+    /* transitions */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html, body,
@@ -35,217 +63,467 @@ html, body,
     display: none !important;
 }
 
-.block-container { padding-top: 0 !important; }
-
-[data-testid="stSidebar"] {
-    background: var(--bg-surface) !important;
-    border-right: 1px solid var(--border) !important;
+.block-container {
+    padding-top: 0 !important;
+    max-width: 100% !important;
 }
 
+* { box-sizing: border-box; }
+
+[data-testid="stSidebar"] {
+    background: var(--bg-sidebar) !important;
+    border-right: 1px solid var(--border) !important;
+    width: var(--sidebar-w) !important;
+    min-width: var(--sidebar-w) !important;
+    max-width: var(--sidebar-w) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    position: relative !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Accent bar at the very top */
 [data-testid="stSidebar"]::before {
     content: '';
-    display: block;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), transparent);
-    width: 100%;
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-light), transparent 80%);
+    z-index: 10;
+}
+
+[data-testid="stSidebar"]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0,210,170,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,210,170,0.025) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+[data-testid="stSidebar"] > div {
+    position: relative;
+    z-index: 1;
+}
+
+[data-testid="stSidebar"] > div:first-child {
+    padding: 0 !important;
+    width: 100% !important;
 }
 
 [data-testid="stSidebar"] h1 {
     font-family: var(--font-display) !important;
     font-weight: 800 !important;
-    color: var(--accent) !important;
-    font-size: 1.2rem !important;
-    letter-spacing: 0.04em !important;
+    font-size: 1.05rem !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: var(--text-primary) !important;
+    margin: 0 !important;
+    padding: 1.6rem 1.4rem 1.4rem !important;
+    border-bottom: 1px solid var(--border) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background: linear-gradient(
+        135deg,
+        rgba(0,210,170,0.06) 0%,
+        transparent 60%
+    ) !important;
+    position: relative !important;
+}
+
+[data-testid="stSidebar"] h1::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 1.4rem;
+    transform: translateY(-50%);
+    width: 40px; height: 40px;
+    background: radial-gradient(circle, rgba(0,210,170,0.20), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Version / status pill rendered via sidebar write("") spacing */
+[data-testid="stSidebar"] .stMarkdown p {
+    font-family: var(--font-mono) !important;
+    font-size: 0.72rem !important;
+    color: var(--text-muted) !important;
+    letter-spacing: 0.06em !important;
+    padding: 0 1.4rem !important;
+    margin: 0 !important;
+}
+
+[data-testid="stSidebar"] nav {
+    padding: 0.5rem 0.75rem !important;
+}
+
+.sidebar-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
     text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--text-muted);
+    padding: 1.1rem 1.4rem 0.4rem;
+    user-select: none;
 }
 
+[data-testid="stSidebar"] ul {
+    padding: 0.25rem 0 !important;
+    list-style: none !important;
+    margin: 0 !important;
+}
+
+[data-testid="stSidebar"] ul li a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.65rem !important;
+    padding: 0.7rem 1rem !important;
+    border-radius: var(--r-sm) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 0.78rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.06em !important;
+    text-transform: uppercase !important;
+    color: var(--text-secondary) !important;
+    text-decoration: none !important;
+    transition: all 0.18s var(--ease) !important;
+    position: relative !important;
+    margin: 2px 0 !important;
+    border: 1px solid transparent !important;
+}
+
+[data-testid="stSidebar"] ul li a:hover {
+    background: rgba(0,210,170,0.06) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--accent-border) !important;
+}
+
+[data-testid="stSidebar"] ul li a.active,
+[data-testid="stSidebar"] ul li a[aria-selected="true"] {
+    background: rgba(0,210,170,0.10) !important;
+    color: var(--accent) !important;
+    border-color: var(--accent-strong) !important;
+    box-shadow: inset 3px 0 0 var(--accent), 0 0 12px var(--accent-glow) !important;
+}
+
+[data-testid="stSidebar"] ul li a i {
+    font-size: 1rem !important;
+    width: 18px !important;
+    text-align: center !important;
+    flex-shrink: 0 !important;
+}
+
+[data-testid="stSidebar"] hr {
+    border: none !important;
+    border-top: 1px solid var(--border) !important;
+    margin: 0.8rem 1.2rem !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"]:last-child {
+    margin-top: auto !important;
+}
+
+.sidebar-stat {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 1.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border);
+}
+
+.sidebar-stat span:last-child {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+
+/* ── 3. MAIN LAYOUT & HEADER ─────────────────────────────────────────────── */
 [data-testid="stMain"] > div:first-child {
-    padding: 2rem 3rem !important;
+    padding: 2rem 3rem 3rem !important;
 }
 
-h1, h2, h3 {
-    font-family: var(--font-display) !important;
-}
+h1, h2, h3 { font-family: var(--font-display) !important; }
 
 [data-testid="stMain"] h1 {
-    font-size: 2rem !important;
+    font-size: 1.9rem !important;
     font-weight: 800 !important;
     color: var(--text-primary) !important;
     border-bottom: 1px solid var(--border) !important;
     padding-bottom: 1rem !important;
     margin-bottom: 2rem !important;
-    position: relative;
+    position: relative !important;
+    letter-spacing: -0.01em !important;
 }
 
 [data-testid="stMain"] h1::after {
     content: '';
     position: absolute;
     left: 0; bottom: -1px;
-    width: 60px; height: 2px;
-    background: var(--accent);
+    width: 48px; height: 2px;
+    background: linear-gradient(90deg, var(--accent), transparent);
+    border-radius: 2px;
 }
 
 [data-testid="stMain"] h3 {
-    font-size: 0.85rem !important;
+    font-size: 0.78rem !important;
     font-weight: 600 !important;
     color: var(--text-secondary) !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.1em !important;
+    letter-spacing: 0.12em !important;
 }
 
 label,
 .stSelectbox label,
 .stNumberInput label {
     font-family: var(--font-mono) !important;
-    font-size: 0.72rem !important;
+    font-size: 0.68rem !important;
     font-weight: 500 !important;
     text-transform: uppercase !important;
-    letter-spacing: 0.08em !important;
+    letter-spacing: 0.09em !important;
     color: var(--text-secondary) !important;
+    margin-bottom: 0.25rem !important;
 }
 
+
+/* ── 4. FORM & INPUTS ────────────────────────────────────────────────────── */
 [data-testid="stForm"] {
     background: var(--bg-card) !important;
     border: 1px solid var(--border) !important;
-    border-radius: var(--radius-lg) !important;
-    padding: 2rem !important;
-    box-shadow: 0 0 40px rgba(0,0,0,0.4),
-                inset 0 1px 0 rgba(255,255,255,0.03) !important;
+    border-radius: var(--r-xl) !important;
+    padding: 2rem 2rem 1.5rem !important;
+    box-shadow:
+        0 0 0 1px rgba(0,210,170,0.04),
+        0 8px 40px rgba(0,0,0,0.5),
+        inset 0 1px 0 rgba(255,255,255,0.03) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Top-left corner accent on form */
+[data-testid="stForm"]::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top left, rgba(0,210,170,0.12), transparent 70%);
+    pointer-events: none;
 }
 
 [data-testid="stNumberInput"] input,
 [data-testid="stSelectbox"] div[data-baseweb="select"] > div {
     background: var(--bg-surface) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--border-mid) !important;
+    border-radius: var(--r-sm) !important;
     color: var(--text-primary) !important;
     font-family: var(--font-mono) !important;
-    font-size: 0.9rem !important;
-    transition: border-color 0.2s, box-shadow 0.2s !important;
+    font-size: 0.88rem !important;
+    transition: border-color 0.18s var(--ease), box-shadow 0.18s var(--ease) !important;
 }
 
 [data-testid="stNumberInput"] input:focus {
-    border-color: var(--border-active) !important;
+    border-color: var(--accent-strong) !important;
     box-shadow: 0 0 0 3px var(--accent-glow) !important;
     outline: none !important;
 }
 
 [data-testid="stNumberInput"] button {
     background: var(--bg-surface) !important;
-    border-color: var(--border) !important;
+    border-color: var(--border-mid) !important;
     color: var(--accent) !important;
+    transition: background 0.15s !important;
 }
 
+[data-testid="stNumberInput"] button:hover {
+    background: var(--accent-dim) !important;
+}
+
+
+/* ── 5. BUTTONS ──────────────────────────────────────────────────────────── */
 [data-testid="stFormSubmitButton"] button,
 [data-testid="stButton"] button[kind="primary"] {
-    background: var(--accent) !important;
-    color: #080C10 !important;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light)) !important;
+    color: #060A0D !important;
     font-family: var(--font-display) !important;
     font-weight: 700 !important;
-    font-size: 0.88rem !important;
-    letter-spacing: 0.06em !important;
+    font-size: 0.82rem !important;
+    letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
     border: none !important;
-    border-radius: var(--radius-sm) !important;
-    padding: 0.65rem 2rem !important;
+    border-radius: var(--r-sm) !important;
+    padding: 0.7rem 2rem !important;
     width: 100% !important;
-    transition: opacity 0.2s, box-shadow 0.2s !important;
-    box-shadow: 0 4px 20px var(--accent-glow) !important;
+    transition: opacity 0.2s, box-shadow 0.2s, transform 0.15s !important;
+    box-shadow: 0 4px 20px var(--accent-glow), 0 1px 0 rgba(255,255,255,0.15) inset !important;
 }
 
 [data-testid="stFormSubmitButton"] button:hover,
 [data-testid="stButton"] button[kind="primary"]:hover {
-    opacity: 0.88 !important;
-    box-shadow: 0 6px 30px var(--accent-glow) !important;
+    opacity: 0.9 !important;
+    box-shadow: 0 8px 32px var(--accent-glow) !important;
+    transform: translateY(-1px) !important;
+}
+
+[data-testid="stFormSubmitButton"] button:active,
+[data-testid="stButton"] button[kind="primary"]:active {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
 }
 
 [data-testid="stButton"] button {
-    background: var(--bg-card) !important;
+    background: transparent !important;
     color: var(--accent) !important;
-    border: 1px solid var(--border-active) !important;
-    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--accent-strong) !important;
+    border-radius: var(--r-sm) !important;
     font-family: var(--font-display) !important;
     font-weight: 600 !important;
-    font-size: 0.82rem !important;
-    letter-spacing: 0.05em !important;
+    font-size: 0.78rem !important;
+    letter-spacing: 0.07em !important;
     text-transform: uppercase !important;
-    padding: 0.6rem 1.5rem !important;
-    transition: background 0.2s !important;
+    padding: 0.65rem 1.5rem !important;
+    transition: background 0.18s, box-shadow 0.18s, transform 0.15s !important;
 }
 
 [data-testid="stButton"] button:hover {
     background: var(--accent-dim) !important;
+    box-shadow: 0 0 0 1px var(--accent-strong) !important;
+    transform: translateY(-1px) !important;
 }
 
+
+/* ── 6. RESULTS ──────────────────────────────────────────────────────────── */
+
+/* Progress bar */
 [data-testid="stProgressBar"] > div {
     background: var(--bg-surface) !important;
     border: 1px solid var(--border) !important;
     border-radius: 99px !important;
     height: 10px !important;
+    overflow: hidden !important;
 }
 
 [data-testid="stProgressBar"] > div > div {
-    background: linear-gradient(90deg, var(--accent), #00ffcc) !important;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-light) 100%) !important;
     border-radius: 99px !important;
+    position: relative !important;
 }
 
+/* Shimmer on progress fill */
+[data-testid="stProgressBar"] > div > div::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255,255,255,0.20) 40%,
+        transparent 100%
+    );
+    animation: shimmer 1.8s infinite;
+}
+
+@keyframes shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+
+/* Alerts */
 .stSuccess > div {
     background: rgba(0, 210, 170, 0.07) !important;
-    border: 1px solid rgba(0, 210, 170, 0.3) !important;
-    border-radius: var(--radius-md) !important;
+    border: 1px solid rgba(0, 210, 170, 0.28) !important;
+    border-radius: var(--r-md) !important;
     color: var(--accent) !important;
 }
 
 .stError > div {
-    background: rgba(255, 77, 109, 0.07) !important;
-    border: 1px solid rgba(255, 77, 109, 0.3) !important;
-    border-radius: var(--radius-md) !important;
+    background: var(--danger-dim) !important;
+    border: 1px solid var(--danger-border) !important;
+    border-radius: var(--r-md) !important;
     color: var(--danger) !important;
 }
 
 .stInfo > div {
-    background: rgba(0, 210, 170, 0.05) !important;
+    background: rgba(0, 210, 170, 0.04) !important;
     border: 1px solid var(--border) !important;
-    border-radius: var(--radius-md) !important;
+    border-radius: var(--r-md) !important;
     color: var(--text-secondary) !important;
 }
 
+/* Result images */
+[data-testid="stImage"] img {
+    filter: drop-shadow(0 0 18px var(--accent-glow));
+    border-radius: var(--r-md);
+    transition: filter 0.3s;
+}
+
+[data-testid="stImage"] img:hover {
+    filter: drop-shadow(0 0 28px rgba(0,210,170,0.5));
+}
+
+
+/* ── 7. DATAFRAME & FILE UPLOADER ────────────────────────────────────────── */
 [data-testid="stDataFrame"] {
     border: 1px solid var(--border) !important;
-    border-radius: var(--radius-md) !important;
+    border-radius: var(--r-md) !important;
     overflow: hidden !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
 }
 
 [data-testid="stFileUploader"] {
     background: var(--bg-card) !important;
-    border: 1px dashed var(--border-active) !important;
-    border-radius: var(--radius-md) !important;
-    padding: 1.5rem !important;
-    transition: background 0.2s, border-color 0.2s !important;
+    border: 1px dashed var(--accent-strong) !important;
+    border-radius: var(--r-lg) !important;
+    padding: 2rem 1.5rem !important;
+    text-align: center !important;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+[data-testid="stFileUploader"]::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,210,170,0.04), transparent 70%);
+    pointer-events: none;
 }
 
 [data-testid="stFileUploader"]:hover {
-    background: var(--accent-dim) !important;
+    background: rgba(0,210,170,0.05) !important;
     border-color: var(--accent) !important;
+    box-shadow: 0 0 0 3px var(--accent-glow) !important;
 }
 
 [data-testid="stFileUploader"] label {
     text-transform: none !important;
-    font-size: 0.92rem !important;
+    font-size: 0.9rem !important;
     color: var(--text-primary) !important;
     letter-spacing: 0 !important;
+    font-weight: 400 !important;
 }
 
+
+/* ── 8. DROPDOWN & SCROLLBAR ─────────────────────────────────────────────── */
 [data-baseweb="popover"] ul {
-    background: var(--bg-card) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius-md) !important;
+    background: var(--bg-card-2) !important;
+    border: 1px solid var(--border-mid) !important;
+    border-radius: var(--r-md) !important;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
 }
 
 [data-baseweb="popover"] li {
     color: var(--text-primary) !important;
     font-family: var(--font-mono) !important;
-    font-size: 0.88rem !important;
+    font-size: 0.85rem !important;
+    padding: 0.55rem 1rem !important;
+    transition: background 0.12s !important;
 }
 
 [data-baseweb="popover"] li:hover {
@@ -253,20 +531,212 @@ label,
     color: var(--accent) !important;
 }
 
+/* Column divider */
 [data-testid="stColumns"] > div + div {
     border-left: 1px solid var(--border);
     padding-left: 2rem !important;
 }
 
-[data-testid="stImage"] img {
-    filter: drop-shadow(0 0 14px var(--accent-glow));
-    border-radius: var(--radius-md);
+/* Spinner */
+[data-testid="stSpinner"] > div {
+    border-top-color: var(--accent) !important;
 }
 
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg-base); }
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
     background: var(--text-muted);
     border-radius: 99px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+
+/* ── 9. RESPONSIVE BREAKPOINTS ───────────────────────────────────────────── */
+
+/* ---- Large desktop (≥ 1400px) ---- */
+@media (min-width: 1400px) {
+    [data-testid="stMain"] > div:first-child {
+        padding: 2.5rem 4rem 3rem !important;
+    }
+
+    [data-testid="stMain"] h1 {
+        font-size: 2.2rem !important;
+    }
+
+    [data-testid="stForm"] {
+        padding: 2.5rem !important;
+    }
+}
+
+/* ---- Tablet landscape / small desktop (769px – 1199px) ---- */
+@media (max-width: 1199px) {
+    :root { --sidebar-w: 240px; }
+
+    [data-testid="stMain"] > div:first-child {
+        padding: 1.5rem 2rem 2.5rem !important;
+    }
+
+    [data-testid="stMain"] h1 {
+        font-size: 1.6rem !important;
+    }
+
+    [data-testid="stForm"] {
+        padding: 1.5rem !important;
+    }
+
+    [data-testid="stColumns"] > div + div {
+        border-left: none;
+        border-top: 1px solid var(--border);
+        padding-left: 0 !important;
+        padding-top: 1.5rem !important;
+        margin-top: 1rem !important;
+    }
+}
+
+/* ---- Tablet portrait (481px – 768px) ---- */
+@media (max-width: 768px) {
+    :root { --sidebar-w: 220px; }
+
+    [data-testid="stMain"] > div:first-child {
+        padding: 1.25rem 1.25rem 2rem !important;
+    }
+
+    [data-testid="stMain"] h1 {
+        font-size: 1.35rem !important;
+        margin-bottom: 1.25rem !important;
+    }
+
+    [data-testid="stForm"] {
+        padding: 1.25rem 1rem !important;
+        border-radius: var(--r-lg) !important;
+    }
+
+    /* Stack the two-column form layout */
+    [data-testid="stForm"] [data-testid="stColumns"] {
+        flex-direction: column !important;
+    }
+
+    [data-testid="stForm"] [data-testid="stColumns"] > div {
+        width: 100% !important;
+        min-width: 100% !important;
+    }
+
+    [data-testid="stForm"] [data-testid="stColumns"] > div + div {
+        border-left: none !important;
+        border-top: 1px solid var(--border) !important;
+        padding-left: 0 !important;
+        padding-top: 1rem !important;
+        margin-top: 0.75rem !important;
+    }
+
+    /* Make the result column full width on tablet */
+    [data-testid="stMain"] [data-testid="stColumns"] {
+        flex-wrap: wrap !important;
+    }
+
+    [data-testid="stMain"] > div > [data-testid="stColumns"] > div {
+        min-width: 100% !important;
+    }
+
+    [data-testid="stFileUploader"] {
+        padding: 1.5rem 1rem !important;
+    }
+}
+
+/* ---- Mobile (≤ 480px) ---- */
+@media (max-width: 480px) {
+    /* Collapsed sidebar — let Streamlit handle the toggle */
+    [data-testid="stSidebar"] {
+        width: 100vw !important;
+        min-width: unset !important;
+        max-width: 100vw !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border) !important;
+    }
+
+    [data-testid="stMain"] > div:first-child {
+        padding: 1rem 0.9rem 1.5rem !important;
+    }
+
+    [data-testid="stMain"] h1 {
+        font-size: 1.15rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    [data-testid="stForm"] {
+        padding: 1rem 0.85rem !important;
+        border-radius: var(--r-md) !important;
+    }
+
+    /* Full-width stacked columns inside form */
+    [data-testid="stForm"] [data-testid="stColumns"] {
+        flex-direction: column !important;
+        gap: 0 !important;
+    }
+
+    [data-testid="stForm"] [data-testid="stColumns"] > div {
+        width: 100% !important;
+        min-width: 100% !important;
+        padding: 0 !important;
+    }
+
+    [data-testid="stForm"] [data-testid="stColumns"] > div + div {
+        border-left: none !important;
+        border-top: 1px solid var(--border) !important;
+        padding-left: 0 !important;
+        padding-top: 0.75rem !important;
+        margin-top: 0.75rem !important;
+    }
+
+    /* Outer result/form split */
+    [data-testid="stMain"] > div > [data-testid="stColumns"] {
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
+    [data-testid="stMain"] > div > [data-testid="stColumns"] > div {
+        min-width: 100% !important;
+        border-left: none !important;
+        border-top: 1px solid var(--border) !important;
+        padding-left: 0 !important;
+        padding-top: 1rem !important;
+    }
+
+    [data-testid="stMain"] > div > [data-testid="stColumns"] > div:first-child {
+        border-top: none !important;
+        padding-top: 0 !important;
+    }
+
+    label,
+    .stSelectbox label,
+    .stNumberInput label {
+        font-size: 0.65rem !important;
+    }
+
+    [data-testid="stMain"] h3 {
+        font-size: 0.72rem !important;
+    }
+
+    [data-testid="stFileUploader"] {
+        padding: 1.2rem 0.75rem !important;
+    }
+
+    [data-testid="stProgressBar"] > div {
+        height: 8px !important;
+    }
+
+    [data-testid="stFormSubmitButton"] button,
+    [data-testid="stButton"] button[kind="primary"] {
+        font-size: 0.75rem !important;
+        padding: 0.65rem 1rem !important;
+    }
+}
+
+/* ── Sidebar collapsed state (Streamlit's built-in toggle) ── */
+[data-testid="stSidebar"][aria-expanded="false"] {
+    width: 0 !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    border-right: none !important;
+}
